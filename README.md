@@ -13,6 +13,20 @@ A high-performance, concurrent Agent Availability Service built with **Bun** and
 
 ---
 
+## Approach
+
+The service models time intervals (e.g., minutes of the day `[0, 1439]`) using a **Segment Tree** structure to allow fast retrieval and updates of available agents.
+
+- **Tree Creation**: $O(N)$
+- **Availability Retrieval**: $O(\log N)$
+- **Schedule Update**: $O(\log N)$
+
+Each node in the tree represents a time range and stores the set of active agents for that period. Point queries traverse down to specific minute leaf nodes (e.g., minute `9`) while aggregating agent sets along the path.
+
+![Approach Diagram](assets/approach-diagram.png)
+
+---
+
 ## Project Structure
 
 ```
@@ -27,6 +41,7 @@ A high-performance, concurrent Agent Availability Service built with **Bun** and
 ├── benchmark/
 │   └── load-test.ts             # Load testing benchmark
 └── assets/
+    ├── approach-diagram.png     # Segment Tree availability approach diagram
     └── benchmark-results.png    # Benchmark result screenshot
 ```
 
